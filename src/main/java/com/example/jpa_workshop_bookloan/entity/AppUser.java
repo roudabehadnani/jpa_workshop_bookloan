@@ -26,7 +26,7 @@ public class AppUser {
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH},
             fetch = FetchType.LAZY,
             mappedBy = "borrower")
-    private List<BookLoan> loans;
+    private List<BookLoan> loans = new ArrayList<>();
 
     public AppUser() {
     }

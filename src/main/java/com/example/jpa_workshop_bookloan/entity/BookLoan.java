@@ -44,6 +44,12 @@ public class BookLoan {
         this.book = book;
     }
 
+    public BookLoan(LocalDate loanDate, LocalDate dueDate, boolean returned) {
+        this.loanDate = loanDate;
+        this.dueDate = dueDate;
+        this.returned = returned;
+    }
+
     public int getLoanId() {
         return loanId;
     }

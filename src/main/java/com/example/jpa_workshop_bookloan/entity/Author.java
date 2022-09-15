@@ -33,6 +33,12 @@ public class Author {
         this.lastName = lastName;
     }
 
+    public Author(String firstName, String lastName, Set<Book> writtenBooks) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.writtenBooks = writtenBooks;
+    }
+
     public void addBook(Book book){
         writtenBooks.add(book);
         book.getAuthors().add(this);
