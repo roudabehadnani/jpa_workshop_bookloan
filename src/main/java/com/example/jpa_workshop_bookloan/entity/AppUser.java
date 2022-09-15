@@ -4,6 +4,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 @Entity
 public class AppUser {
@@ -21,6 +23,11 @@ public class AppUser {
     @JoinColumn(name = "details_id")
     private Details userDetails;
 
+    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH},
+            fetch = FetchType.LAZY,
+            mappedBy = "borrower")
+    private List<BookLoan> loans;
+
     public AppUser() {
     }
 
@@ -36,6 +43,15 @@ public class AppUser {
         this.username = username;
         this.password = password;
         this.userDetails = userDetails;
+    }
+
+    public void addBookLoan(BookLoan bookLoan){
+        loans.add(bookLoan);
+        bookLoan.setBorrower(this);
+    }
+    public void removeBookLoan(BookLoan bookLoan){
+        bookLoan.setBorrower(null);
+        loans.remove(bookLoan);
     }
 
     public int getAppUserId() {
@@ -76,6 +92,14 @@ public class AppUser {
 
     public void setUserDetails(Details userDetails) {
         this.userDetails = userDetails;
+    }
+
+    public List<BookLoan> getLoans() {
+        return loans;
+    }
+
+    public void setLoans(List<BookLoan> loans) {
+        this.loans = loans;
     }
 
     @Override
